@@ -13,11 +13,14 @@ public class UserRepository {
     private final EntityManager em;
 
     public List<User> saveUser(List<User> users) {
-        System.out.println("전:" + users);
-        for(User user: users) {
+        for(User user : users) {
             em.persist(user);
         }
-        System.out.println("후: " + users);
         return users;
     }
+
+    public User findUserById(int id) {
+        return em.find(User.class, id);
+    }
+
 }
