@@ -2,7 +2,6 @@ package org.mtcoding.poly.user;
 
 
 import lombok.Getter;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -12,9 +11,7 @@ public class UserRequest {
     public static class JoinUsersDTO {
         public List<UserDTO> users = new ArrayList<>();
 
-
         public JoinUsersDTO(List<User> users) {
-            System.out.println("users = " + users);
             for(User user : users) {
                 this.users.add(new UserDTO(user));
             }

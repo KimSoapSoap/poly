@@ -14,22 +14,18 @@ public class UrlFilter implements Filter {
 
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
 
         String requestURI = request.getRequestURI();
 
         if(INVALID_URL_PATTERN.matcher(requestURI).find()) {
-      /*      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().write("\"{reason}\" : 잘못된 주소입니다.");
-            System.out.println("잘못됐어");
-            return;*/
+            return;
         }
-
-        System.out.println("잘 들어왔어");
         filterChain.doFilter(request, response);
-
     }
 }
