@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 
 @RestControllerAdvice
@@ -39,6 +40,14 @@ public class GlobalApiExceptionHandler {
     public ResponseEntity<?> ex(Exception e) {
          return new ResponseEntity<>("{\"reason\": \""+e.getMessage()+"\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<?> handleResourceNotFoundException(NoResourceFoundException e) {
+        return new ResponseEntity<>("{\"reason\": \"'존재하지 않는 API입니다.'\"}", HttpStatus.NOT_FOUND);
+    }
+
+
 }
 
 

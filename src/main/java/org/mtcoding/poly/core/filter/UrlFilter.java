@@ -18,9 +18,11 @@ public class UrlFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        String requestURI = request.getRequestURI();
+        StringBuffer requestURL = request.getRequestURL();
+        String queryString = request.getQueryString();
+        String fullURL = requestURL.toString() + (queryString == null ? "" : "?" + queryString );
 
-        if(INVALID_URL_PATTERN.matcher(requestURI).find()) {
+        if(INVALID_URL_PATTERN.matcher(fullURL).find()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().write("\"{reason}\" : 잘못된 주소입니다.");

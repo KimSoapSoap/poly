@@ -31,17 +31,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.UserDTO updateUser(int id, User user) {
+    public UserResponse.UserDTO updateUser(int id, UserRequest.ModifyUserDTO modifyUserDTO) {
         User userPs = userRepository.findUserById(id);
         if(userPs == null) {
             throw new ExceptionApi404("존재하지 않는 회원입니다.");
         }
 
-        if(id != user.getId()) {
+        if(id != modifyUserDTO.getId()) {
             throw new ExceptionApi403("수정 권한이 없습니다.");
         }
-
-        userPs.changeName(user.getName());
+        userPs.changeName(modifyUserDTO.getName());
 
         return new UserResponse.UserDTO(userPs);
     }

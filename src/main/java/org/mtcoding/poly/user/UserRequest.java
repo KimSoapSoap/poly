@@ -2,6 +2,8 @@ package org.mtcoding.poly.user;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -38,11 +40,12 @@ public class UserRequest {
     }
 
     @Getter
-    public static class modifyUserDTO {
+    @NoArgsConstructor
+    public static class ModifyUserDTO {
         private Integer id;
         private String name;
 
-        public modifyUserDTO(User user) {
+        public ModifyUserDTO(User user) {
             this.id = user.getId();
             this.name = user.getName();
         }
