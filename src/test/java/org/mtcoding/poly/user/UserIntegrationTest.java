@@ -34,10 +34,10 @@ public class UserIntegrationTest {
     private EntityManager em;
 
     @BeforeEach
+    @Transactional
     void setUp() throws Exception {
         User user = User.builder().name("ksh").build();
         em.persist(user);
-        em.flush();
     }
 
 
@@ -51,8 +51,7 @@ public class UserIntegrationTest {
         users.add(User.builder().name("love").build());
         users.add(User.builder().name("cos").build());
 
-        UserRequest.JoinUsersDTO joinUsersDTO = new UserRequest.JoinUsersDTO(users);
-        String usersJson = objectMapper.writeValueAsString(joinUsersDTO.getUsers());
+        String usersJson = objectMapper.writeValueAsString(users);
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
@@ -62,10 +61,10 @@ public class UserIntegrationTest {
 
         //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(4))
-                .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[2].id").value(3))
-                .andExpect(jsonPath("$[3].id").value(4));
+                .andExpect(jsonPath("$.length()").value(3))
+                .andExpect(jsonPath("$[0].id").value(2))
+                .andExpect(jsonPath("$[1].id").value(3))
+                .andExpect(jsonPath("$[2].id").value(4));
     }
 
 
@@ -95,10 +94,8 @@ public class UserIntegrationTest {
         //given
         int id = 1;
         User user = User.builder().id(id).name("hapssar").build();
-        UserRequest.ModifyUserDTO modifyUserDTO = new UserRequest.ModifyUserDTO(user);
 
-        String userJson = objectMapper.writeValueAsString(modifyUserDTO);
-
+        String userJson = objectMapper.writeValueAsString(user);
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.put("/users/{id}", id)
