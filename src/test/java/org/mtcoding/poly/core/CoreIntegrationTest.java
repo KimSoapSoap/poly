@@ -29,7 +29,7 @@ public class CoreIntegrationTest {
     @Test
     public void requestWrongData_Test() throws Exception {
         //given
-        int id = 999;
+        String id = "cos";
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", id)

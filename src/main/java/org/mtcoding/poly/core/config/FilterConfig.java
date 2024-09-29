@@ -1,5 +1,4 @@
 package org.mtcoding.poly.core.config;
-
 import org.mtcoding.poly.core.filter.UrlFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

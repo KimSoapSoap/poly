@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 
@@ -43,9 +44,17 @@ public class GlobalApiExceptionHandler {
 
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<?> handleResourceNotFoundException(NoResourceFoundException e) {
+    public ResponseEntity<?> handleResourceNotFoundException(Exception e) {
         return new ResponseEntity<>("{\"reason\": \"'존재하지 않는 API입니다.'\"}", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalStateException.class})
+    public ResponseEntity<?> methodArgumentTypeMismatchException(Exception e) {
+        return new ResponseEntity<>("{\"reason\": \"'잘못된 요청입니다.'\"}", HttpStatus.BAD_REQUEST);
+    }
+
+
+
 
 
 }
