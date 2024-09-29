@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional(readOnly = true)
+@Transactional
 public class UserIntegrationTest {
 
     @Autowired
@@ -34,15 +34,15 @@ public class UserIntegrationTest {
     private EntityManager em;
 
     @BeforeEach
-    @Transactional
     void setUp() throws Exception {
         User user = User.builder().name("ksh").build();
         em.persist(user);
+        em.flush();
+        em.clear();
     }
 
 
     @DisplayName("유저 등록 테스트")
-    @Transactional
     @Test
     public void saveUser_Test() throws Exception {
         //given
@@ -69,6 +69,7 @@ public class UserIntegrationTest {
 
 
     @DisplayName("유저 조회 테스트")
+    @Transactional(readOnly = true)
     @Test
     public void findUser_Test() throws Exception {
         //given
@@ -88,7 +89,6 @@ public class UserIntegrationTest {
 
 
     @DisplayName("유저 수정 테스트")
-    @Transactional
     @Test
     public void chageUser_Test() throws Exception {
         //given

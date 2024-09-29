@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional(readOnly = true)
+@Transactional
 public class CoreIntegrationTest {
 
     @Autowired
@@ -26,6 +26,7 @@ public class CoreIntegrationTest {
 
 
     @DisplayName("잘못된 요청 테스트")
+    @Transactional(readOnly = true)
     @Test
     public void requestWrongData_Test() throws Exception {
         //given
@@ -42,6 +43,7 @@ public class CoreIntegrationTest {
 
 
     @DisplayName("존재하지 않는 API요청 테스트")
+    @Transactional(readOnly = true)
     @Test
     public void requestWrongAPI_Test() throws Exception {
         //given
@@ -58,6 +60,7 @@ public class CoreIntegrationTest {
 
 
     @DisplayName("필터 테스트")
+    @Transactional
     @Test
     public void checkUrlFilter_Test() throws Exception {
         //given
@@ -65,9 +68,6 @@ public class CoreIntegrationTest {
         User user = User.builder().name("hapssar").build();
         em.persist(user);
         em.flush();
-
-        System.out.println(user.getId());
-        System.out.println(user.getName());
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}?name=test!!", id)

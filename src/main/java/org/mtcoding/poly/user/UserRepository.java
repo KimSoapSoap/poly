@@ -12,11 +12,9 @@ public class UserRepository {
 
     private final EntityManager em;
 
-    public List<User> saveUser(List<User> users) {
-        for(User user : users) {
-            em.persist(user);
-        }
-        return users;
+    public User saveUser(User user) {
+        em.persist(user);
+        return user;
     }
 
     public User findUserById(int id) {

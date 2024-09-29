@@ -1,7 +1,6 @@
 package org.mtcoding.poly.user;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +8,12 @@ import java.util.List;
 public class UserResponse {
 
     @Getter
-    public static class UserDTO {
+    public static class searchedUserDTO {
         private Integer id;
         private String name;
 
 
-        public UserDTO(User user) {
+        public searchedUserDTO(User user) {
             this.id = user.getId();
             this.name = user.getName();
         }
