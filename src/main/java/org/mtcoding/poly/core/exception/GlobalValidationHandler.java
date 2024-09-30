@@ -2,6 +2,7 @@ package org.mtcoding.poly.core.exception;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -18,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
 
-
+@Slf4j
 @Component
 @Aspect
 public class GlobalValidationHandler {
@@ -43,7 +44,7 @@ public class GlobalValidationHandler {
 
 
 
-    @Before("within(org.mtcoding.poly.user.UserController) && @within(org.springframework.stereotype.Controller)")
+    @Before("within(org.mtcoding.poly.user.UserController) && @within(org.springframework.web.bind.annotation.RestController)")
     public void writeLog(JoinPoint jp) {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -62,7 +63,7 @@ public class GlobalValidationHandler {
             what = "수정";
         }
 
-        System.out.println("[user"+ what +"]  ClientAgent: " + clientAgent);
+        log.debug("debug log={}", "[user"+ what +"]  ClientAgent: " + clientAgent);
     }
 
 

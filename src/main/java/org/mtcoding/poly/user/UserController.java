@@ -18,8 +18,8 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<?> saveUser(@Valid @RequestBody List<UserRequest.JoinUserDTO> users, Errors erros) {
-        UserResponse.joinedUsersDTO joinedUsersDTO = userService.join(users);
-        return ResponseEntity.ok(joinedUsersDTO.getUsers());
+        List<UserResponse.joinedUserDTO> joinedUsersDTO = userService.join(users);
+        return ResponseEntity.ok(joinedUsersDTO);
     }
 
     @GetMapping("/users/{id}")
