@@ -18,18 +18,15 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public List<UserResponse.joinedUserDTO> join(List<UserRequest.JoinUserDTO> users) {
-        List<UserResponse.joinedUserDTO> joinedUsers = new ArrayList<>();
-        for(UserRequest.JoinUserDTO user : users) {
-            joinedUsers.add(new UserResponse.joinedUserDTO(userRepository.saveUser(user.toEntity())));
-        }
-        return joinedUsers;
+    public UserResponse.joinedUserDTO join(UserRequest.JoinUserDTO joinDTO) {
+       User userPs = userRepository.saveUser(joinDTO.toEntity());
+        return new UserResponse.joinedUserDTO(userPs);
     }
 
     public UserResponse.searchedUserDTO findUser(int id) {
         User userPs = userRepository.findUserById(id);
         if(userPs == null) {
-            throw new ExceptionApi404("존재하지 않는 회원입니다.");
+            throw new ExceptionApi404("id: " + id + " 존재하지 않는 회원입니다.");
         }
         return new UserResponse.searchedUserDTO(userPs);
     }
@@ -38,7 +35,7 @@ public class UserService {
     public UserResponse.searchedUserDTO updateUser(int id, UserRequest.ModifyUserDTO modifyUserDTO) {
         User userPs = userRepository.findUserById(id);
         if(userPs == null) {
-            throw new ExceptionApi404("존재하지 않는 회원입니다.");
+            throw new ExceptionApi404("id: " + id + " 존재하지 않는 회원입니다.");
         }
 
         if(id != modifyUserDTO.getId()) {
