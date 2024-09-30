@@ -43,9 +43,7 @@ public class GlobalValidationHandler {
 
 
 
-    @Before("@annotation(org.springframework.web.bind.annotation.GetMapping)" +
-            "|| @annotation(org.springframework.web.bind.annotation.PostMapping)" +
-            "|| @annotation(org.springframework.web.bind.annotation.PutMapping)")
+    @Before("within(org.mtcoding.poly.user.UserController) && @within(org.springframework.stereotype.Controller)")
     public void writeLog(JoinPoint jp) {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
