@@ -3,6 +3,7 @@ package org.mtcoding.poly.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jdk.jfr.Unsigned;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank

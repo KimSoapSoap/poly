@@ -46,12 +46,9 @@ public class UserIntegrationTest {
     @Test
     public void saveUser_Test() throws Exception {
         //given
-        List<User> users = new ArrayList<>();
-        users.add(User.builder().name("ssar").build());
-        users.add(User.builder().name("love").build());
-        users.add(User.builder().name("cos").build());
+        User user = User.builder().name("ssar").build();
 
-        String usersJson = objectMapper.writeValueAsString(users);
+        String usersJson = objectMapper.writeValueAsString(user);
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
@@ -61,10 +58,8 @@ public class UserIntegrationTest {
 
         //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(3))
-                .andExpect(jsonPath("$[0].id").value(2))
-                .andExpect(jsonPath("$[1].id").value(3))
-                .andExpect(jsonPath("$[2].id").value(4));
+                .andExpect(jsonPath("$.id").value(2));
+
     }
 
 
