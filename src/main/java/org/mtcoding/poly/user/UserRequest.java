@@ -17,7 +17,6 @@ public class UserRequest {
         public User toEntity() {
             return User.builder().name(name).build();
         }
-
     }
 
     @Getter
